@@ -4,25 +4,25 @@
 
 CXX ?= g++
 
-USE_UPNP:=-
+USE_UPNP:=1
 USE_IPV6:=1
 
 DEPSDIR?=/usr/local
-BOOST_SUFFIX?=-mgw49-mt-s-1_57
+BOOST_SUFFIX?=-mgw53-mt-s-1_58
 
 INCLUDEPATHS= \
- -I"c:/deps/boost_1_57_0" \
+ -I"c:/deps/boost_1_58_0" \
  -I"c:/deps/db-4.8.30.NC/build_unix" \
- -I"c:/deps/miniupnpc" \
+ -I"c:/deps/miniupnpc-1.6" \
  -I"c:/deps/gmp-6.0.0" \
- -I"c:/deps/openssl-1.0.1j/include"
+ -I"c:/deps/openssl-1.0.2s/include"
 
 LIBPATHS= \
- -L"c:/deps/boost_1_57_0/stage/lib" \
+ -L"c:/deps/boost_1_58_0/stage/lib" \
  -L"c:/deps/db-4.8.30.NC/build_unix" \
- -L"c:/deps/miniupnpc" \
+ -L"c:/deps/miniupnpc-1.6" \
  -L"c:/deps/gmp-6.0.0/.libs" \
- -L"c:/deps/openssl-1.0.1j"
+ -L"c:/deps/openssl-1.0.2s"
  
 LIBS= \
  -l boost_system$(BOOST_SUFFIX) \
@@ -46,8 +46,8 @@ ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"C:\miniupnpc-1.6-mgw"
- LIBPATHS += -L"C:\miniupnpc-1.6-mgw"
+ INCLUDEPATHS += -I"c:/deps/miniupnpc-1.6"
+ LIBPATHS += -L"c:/deps/miniupnpc-1.6"
  LIBS += -l miniupnpc -l iphlpapi
  DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif

@@ -31,4 +31,15 @@ static const int MAX_URI_LENGTH = 255;
 /* QRCodeDialog -- size of exported QR Code image */
 #define EXPORT_IMAGE_SIZE 256
 
+/* Number of frames in spinner animation */
+#define SPINNER_FRAMES 36
+
+#define QAPP_ORG_NAME "Noblecoin"
+#define QAPP_ORG_DOMAIN "noblemovement.com"
+#define QAPP_APP_NAME_DEFAULT "Noblecoin-Qt"
+#define QAPP_APP_NAME_TESTNET "Noblecoin-Qt-testnet"
+
+#define QAPP_URL_SOURCE_CODE "https://github.com/eagleflies/noblecoin"
+#define QAPP_URL_WEBSITE "http://noblemovement.com"
+
 #endif // GUICONSTANTS_H

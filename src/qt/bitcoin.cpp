@@ -144,12 +144,11 @@ int main(int argc, char *argv[])
 
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
-    app.setOrganizationName("Noblecoin");
-    app.setOrganizationDomain("Noblecoin.su");
+    QApplication::setOrganizationName("QAPP_ORG_NAME");
+    QApplication::setOrganizationDomain("QAPP_ORG_DOMAIN");
+    QApplication::setApplicationName(QAPP_APP_NAME_DEFAULT);
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("Noblecoin-Qt-testnet");
-    else
-        app.setApplicationName("Noblecoin-Qt");
+    QApplication::setApplicationName(QAPP_APP_NAME_TESTNET);
 
     // ... then GUI settings:
     OptionsModel optionsModel;

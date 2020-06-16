@@ -26,7 +26,8 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const int MAX_POW_HEIGHT = 25200;
+static const int MAX_POW_HEIGHT = 250000000; //Allow Pow permanently
+static const int END_NOBL_PUREPOS_HEIGHT = 1610644; //Transition into Hybrid Pos/Pow Wallet
 
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;

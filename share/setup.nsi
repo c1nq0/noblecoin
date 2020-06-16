@@ -5,11 +5,11 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.0.0.1
+!define VERSION 2.1.0.0
 !define COMPANY "Noblecoin project"
 
 # MUI Symbol Definitions
-!define MUI_ICON "../share/pixmaps/Noblecoin.ico"
+!define MUI_ICON "../share/pixmaps/noblecoin.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT

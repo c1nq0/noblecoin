@@ -106,6 +106,8 @@ private:
     uint64 nWeight;
     uint64 nNetworkWeight;
 
+    int spinnerFrame;
+
     /** Create the main UI actions. */
     void createActions();
     /** Create the menu bar and sub-menus. */

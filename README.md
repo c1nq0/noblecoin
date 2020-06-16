@@ -1,7 +1,23 @@
 
-Noblecoin development tree
+# NobleCoin [NOBL] #
 
-Noblecoin is a PoS-based cryptocurrency. 
+Noblecoin is a Hybrid-based cryptocurrency. Pos VII and POW M7M 
+
+### Version 2.1.0.0: Fork @ Height 1610644
+Fork to transition to permanent hybrid wallet with POS V2 and POW (M7M) 
+A reload of the blockchain is not necessary.
+POW reward has been set at 5 NOBL.
+Protocol version increased to 90000. Lower versions are disabled.
+
+
+### Version < 2.1.0.0:
+are no longer compatible. They will not accept the new POW blocks.
+Upgrade to at least version 2.1.0.0 is mandatory.
+
+
+
+
+
 
 Development process
 ===========================

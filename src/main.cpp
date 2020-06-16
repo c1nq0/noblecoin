@@ -932,11 +932,19 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 
 int64 GetProofOfWorkReward(int nBits, int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 1000 * COIN;
-    
+    int64 nSubsidy = 1* COIN;
+
     if(nHeight <= 11)
     {
         nSubsidy = 200000000 * COIN;
+    }
+    else if (nHeight < END_NOBL_PUREPOS_HEIGHT) // Transition into permanent Hybrid wallet
+    {
+        nSubsidy = 1000 * COIN;
+    }
+    else 
+    {
+        nSubsidy = 5 * COIN;
     }
 
     return nSubsidy + nFees;
@@ -2852,6 +2860,9 @@ string GetWarnings(string strFor)
     if (GetBoolArg("-testsafemode"))
         strRPC = "test";
 
+    if (!CLIENT_VERSION_IS_RELEASE)
+        strStatusBar = _("This is a pre-release test build - use at your own risk - do not use for mining or merchant applications");
+
     // ppcoin: wallet lock warning for minting
     if (strMintWarning != "")
     {
@@ -2868,11 +2879,11 @@ string GetWarnings(string strFor)
 
     // ppcoin: should not enter safe mode for longer invalid chain
     // ppcoin: if sync-checkpoint is too old do not enter safe mode
-    if (Checkpoints::IsSyncCheckpointTooOld(60 * 60 * 24 * 365) && !fTestNet && !IsInitialBlockDownload())
-    {
-        nPriority = 100;
-        strStatusBar = "WARNING: Checkpoint is too old. Wait for block chain to download, or notify developers.";
-    }
+    //if (Checkpoints::IsSyncCheckpointTooOld(60 * 60 * 24 * 365) && !fTestNet && !IsInitialBlockDownload())
+    //{
+    //    nPriority = 100;
+    //    strStatusBar = "WARNING: Checkpoint is too old. Wait for block chain to download, or notify developers.";
+    //}
 
     // ppcoin: if detected invalid checkpoint enter safe mode
     if (Checkpoints::hashInvalidCheckpoint != 0)
@@ -3005,8 +3016,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         }
 
         // ppcoin: record my external IP reported by peer
-        if (addrFrom.IsRoutable() && addrMe.IsRoutable())
-            addrSeenByPeer = addrMe;
+        if (addrFrom.IsRoutable() && addrMe.IsRoutable()) {
+
+            if (addrFrom.IsIPv4()) {
+                addrSeenByPeerIpv4 = addrMe;
+            }
+
+            if (addrFrom.IsIPv6()) {
+                addrSeenByPeerIpv6 = addrMe;
+            }
+            addrSeenByPeerIp = addrMe;
+        }
 
         // Be shy and don't send version until we hear
         if (pfrom->fInbound)
@@ -4399,7 +4419,7 @@ void NoblecoinMiner(CWallet *pwallet, bool fProofOfStake)
         while (vNodes.empty() || IsInitialBlockDownload() || pwallet->IsLocked())
         {
             nLastCoinStakeSearchInterval = 0;
-            Sleep(1000);
+            MilliSleep(1000);
             if (fShutdown)
                 return;
             if (!fGenerateNoblecoin && !fProofOfStake)
@@ -4434,7 +4454,7 @@ void NoblecoinMiner(CWallet *pwallet, bool fProofOfStake)
                 CheckWork(pblock.get(), *pwalletMain, reservekey);
                 SetThreadPriority(THREAD_PRIORITY_LOWEST);
             }
-            Sleep(500);
+            MilliSleep(500);
             continue;
         }
 
@@ -4592,7 +4612,7 @@ void GenerateNoblecoin(bool fGenerate, CWallet* pwallet)
         {
             if (!NewThread(ThreadNoblecoinMiner, pwallet))
                 printf("Error: NewThread(ThreadNoblecoinMiner) failed\n");
-            Sleep(10);
+            MilliSleep(10);
         }
     }
 }

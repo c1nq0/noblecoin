@@ -18,9 +18,9 @@ Build-Depends: debhelper,
  libqt4-dev,
  libqrencode-dev
 Standards-Version: 3.9.2
-Homepage: http://noblecoin.cc/
-Vcs-Git: git://github.com/noblecoinproject/noblecoin.git
-Vcs-Browser: http://github.com/noblecoinproject/noblecoin
+Homepage: http://www.noblemovement.com/
+Vcs-Git: git://github.com/eagleflies/noblecoin.git
+Vcs-Browser: http://github.com/eagleflies/noblecoin
 
 Package: noblecoind
 Architecture: any
