@@ -14,7 +14,7 @@ either from bootstrap or ReSync.
 
 Preferred Update Method: (BACKUP wallet.dat BEFORE PROCEEDING !!!)
 
-Go to wallet folder of v2.1.0.0 (or older v2.0.4.x) and remove all files except wallet.dat and Blk001.dat. Rename Blk001.dat to bootstrap.dat. Copy Wallet client v2.1.1.0 in this folder. Client will start-up and import blocks from local bootstrap. This can take up to 24 hours to complete. Cleint will rename bootstrap file automtiacally when finished and continu working normally.
+Go to wallet folder of v2.1.0.0 (or older v2.0.4.x) and remove all files except wallet.dat and Blk001.dat. Rename Blk001.dat to bootstrap.dat. Copy Wallet client v2.1.1.0 in this folder. Client will start-up and import blocks from local bootstrap. This can take up to 24 hours to complete. Client will rename bootstrap file automatically when finished and continu working normally.
 
 ### Version 2.1.0.0: Fork @ Height 1610644
 Fork to transition to permanent hybrid wallet with POS V2 and POW (M7M) 
