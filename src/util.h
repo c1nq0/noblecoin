@@ -251,7 +251,7 @@ void runCommand(std::string strCommand);
 
 inline std::string i64tostr(int64 n)
 {
-    return strprintf("%"PRI64d, n);
+    return strprintf("%" PRI64d, n);
 }
 
 inline std::string itostr(int n)
@@ -275,6 +275,16 @@ inline int64 atoi64(const std::string& str)
 #else
     return strtoll(str.c_str(), NULL, 10);
 #endif
+}
+
+inline int32_t strtol(const char* psz)
+{
+    return strtol(psz, NULL, 10);
+}
+
+inline int32_t strtol(const std::string& str)
+{
+    return strtol(str.c_str(), NULL, 10);
 }
 
 inline int atoi(const std::string& str)
@@ -393,13 +403,22 @@ inline bool IsSwitchChar(char c)
 std::string GetArg(const std::string& strArg, const std::string& strDefault);
 
 /**
- * Return integer argument or default value
+ * Return 64-bit integer argument or default value
  *
  * @param strArg Argument to get (e.g. "-foo")
  * @param default (e.g. 1)
  * @return command-line argument (0 if invalid number) or default value
  */
-int64 GetArg(const std::string& strArg, int64 nDefault);
+int64_t GetArg(const std::string& strArg, int64_t nDefault);
+
+/**
+ * Return 32-bit integer argument or default value
+ *
+ * @param strArg Argument to get (e.g. "-foo")
+ * @param default (e.g. 1)
+ * @return command-line argument (0 if invalid number) or default value
+ */
+int32_t GetArgInt(const std::string& strArg, int32_t nDefault);
 
 /**
  * Return boolean argument or default value
@@ -427,6 +446,28 @@ bool SoftSetArg(const std::string& strArg, const std::string& strValue);
  * @return true if argument gets set, false if it already had a value
  */
 bool SoftSetBoolArg(const std::string& strArg, bool fValue);
+
+/**
+ * MWC RNG of George Marsaglia
+ * This is intended to be fast. It has a period of 2^59.3, though the
+ * least significant 16 bits only have a period of about 2^30.1.
+ *
+ * @return random value
+ */
+extern uint32_t insecure_rand_Rz;
+extern uint32_t insecure_rand_Rw;
+static inline uint32_t insecure_rand(void)
+{
+    insecure_rand_Rz = 36969 * (insecure_rand_Rz & 65535) + (insecure_rand_Rz >> 16);
+    insecure_rand_Rw = 18000 * (insecure_rand_Rw & 65535) + (insecure_rand_Rw >> 16);
+    return (insecure_rand_Rw << 16) + insecure_rand_Rz;
+}
+
+/**
+ * Seed insecure_rand using the random pool.
+ * @param Deterministic Use a determinstic seed
+ */
+void seed_insecure_rand(bool fDeterministic=false);
 
 
 /** Median filter over a stream of values.

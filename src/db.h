@@ -28,7 +28,8 @@ extern unsigned int nWalletDBUpdated;
 
 void ThreadFlushWalletDB(void* parg);
 bool BackupWallet(const CWallet& wallet, const std::string& strDest);
-
+bool DumpWallet(CWallet* pwallet, const std::string& strDest);
+bool ImportWallet(CWallet* pwallet, const std::string& strLocation);
 
 class CDBEnv
 {
@@ -121,7 +122,7 @@ protected:
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
-        Dbt datKey(&ssKey[0], ssKey.size());
+        Dbt datKey(&ssKey[0], (uint32_t)ssKey.size());
 
         // Read
         Dbt datValue;
@@ -136,7 +137,7 @@ protected:
             CDataStream ssValue((char*)datValue.get_data(), (char*)datValue.get_data() + datValue.get_size(), SER_DISK, CLIENT_VERSION);
             ssValue >> value;
         }
-        catch (std::exception &e) {
+        catch (const std::exception&) {
             return false;
         }
 
@@ -158,13 +159,13 @@ protected:
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
-        Dbt datKey(&ssKey[0], ssKey.size());
+        Dbt datKey(&ssKey[0], (uint32_t)ssKey.size());
 
         // Value
         CDataStream ssValue(SER_DISK, CLIENT_VERSION);
         ssValue.reserve(10000);
         ssValue << value;
-        Dbt datValue(&ssValue[0], ssValue.size());
+        Dbt datValue(&ssValue[0], (uint32_t)ssValue.size());
 
         // Write
         int ret = pdb->put(activeTxn, &datKey, &datValue, (fOverwrite ? 0 : DB_NOOVERWRITE));
@@ -187,7 +188,7 @@ protected:
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
-        Dbt datKey(&ssKey[0], ssKey.size());
+        Dbt datKey(&ssKey[0], (uint32_t)ssKey.size());
 
         // Erase
         int ret = pdb->del(activeTxn, &datKey, 0);
@@ -207,7 +208,7 @@ protected:
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         ssKey.reserve(1000);
         ssKey << key;
-        Dbt datKey(&ssKey[0], ssKey.size());
+        Dbt datKey(&ssKey[0], (uint32_t)ssKey.size());
 
         // Exists
         int ret = pdb->exists(activeTxn, &datKey, 0);
@@ -235,13 +236,13 @@ protected:
         if (fFlags == DB_SET || fFlags == DB_SET_RANGE || fFlags == DB_GET_BOTH || fFlags == DB_GET_BOTH_RANGE)
         {
             datKey.set_data(&ssKey[0]);
-            datKey.set_size(ssKey.size());
+            datKey.set_size((uint32_t)ssKey.size());
         }
         Dbt datValue;
         if (fFlags == DB_GET_BOTH || fFlags == DB_GET_BOTH_RANGE)
         {
             datValue.set_data(&ssValue[0]);
-            datValue.set_size(ssValue.size());
+            datValue.set_size((uint32_t)ssValue.size());
         }
         datKey.set_flags(DB_DBT_MALLOC);
         datValue.set_flags(DB_DBT_MALLOC);
@@ -310,46 +311,6 @@ public:
 
     bool static Rewrite(const std::string& strFile, const char* pszSkip = NULL);
 };
-
-
-
-
-
-
-
-/** Access to the transaction database (blkindex.dat) */
-class CTxDB : public CDB
-{
-public:
-    CTxDB(const char* pszMode="r+") : CDB("blkindex.dat", pszMode) { }
-private:
-    CTxDB(const CTxDB&);
-    void operator=(const CTxDB&);
-public:
-    bool ReadTxIndex(uint256 hash, CTxIndex& txindex);
-    bool UpdateTxIndex(uint256 hash, const CTxIndex& txindex);
-    bool AddTxIndex(const CTransaction& tx, const CDiskTxPos& pos, int nHeight);
-    bool EraseTxIndex(const CTransaction& tx);
-    bool ContainsTx(uint256 hash);
-    bool ReadDiskTx(uint256 hash, CTransaction& tx, CTxIndex& txindex);
-    bool ReadDiskTx(uint256 hash, CTransaction& tx);
-    bool ReadDiskTx(COutPoint outpoint, CTransaction& tx, CTxIndex& txindex);
-    bool ReadDiskTx(COutPoint outpoint, CTransaction& tx);
-    bool WriteBlockIndex(const CDiskBlockIndex& blockindex);
-    bool ReadHashBestChain(uint256& hashBestChain);
-    bool WriteHashBestChain(uint256 hashBestChain);
-    bool ReadBestInvalidTrust(CBigNum& bnBestInvalidTrust);
-    bool WriteBestInvalidTrust(CBigNum bnBestInvalidTrust);
-    bool ReadSyncCheckpoint(uint256& hashCheckpoint);
-    bool WriteSyncCheckpoint(uint256 hashCheckpoint);
-    bool ReadCheckpointPubKey(std::string& strPubKey);
-    bool WriteCheckpointPubKey(const std::string& strPubKey);
-    bool LoadBlockIndex();
-private:
-    bool LoadBlockIndexGuts();
-};
-
-
 
 
 /** Access to the (IP) address database (peers.dat) */

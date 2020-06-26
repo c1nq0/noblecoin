@@ -6,7 +6,7 @@
 #include <boost/assign/list_of.hpp>
 
 #include "kernel.h"
-#include "db.h"
+#include "txdb.h"
 
 using namespace std;
 
@@ -299,7 +299,7 @@ static bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64& nStakeModifier
             else
 			{
 			if(fDebug)
-				 printf(">> nStakeModifierTime = %"PRI64d", pindexFrom->GetBlockTime() = %"PRI64d", nStakeModifierSelectionInterval = %"PRI64d"\n",
+				 printf(">> nStakeModifierTime = %" PRI64d ", pindexFrom->GetBlockTime() = %" PRI64d ", nStakeModifierSelectionInterval = %" PRI64d "\n",
 				 	nStakeModifierTime, pindexFrom->GetBlockTime(), nStakeModifierSelectionInterval);
                 return false;
 			}
@@ -357,11 +357,11 @@ bool CheckStakeKernelHash(CBlockIndex* pindexPrev, unsigned int nBits, const CBl
     // v0.3 protocol kernel hash weight starts from 0 at the min age
     // this change increases active coins participating the hash and helps
     // to secure the network when proof-of-stake difficulty is low
-//    int64 nTimeWeight = min((int64)nTimeTx - txPrev.nTime, (int64)nStakeMaxAge) - nStakeMinAge;
+    //    int64 nTimeWeight = min((int64)nTimeTx - txPrev.nTime, (int64)nStakeMaxAge) - nStakeMinAge;
     int64 nTimeWeight = GetMagiWeight(nValueIn, txPrev.nTime, nTimeTx);
     CBigNum bnCoinDayWeight = CBigNum(nValueIn) * nTimeWeight / COIN / (24 * 60 * 60);
 
-	// printf(">>> CheckStakeKernelHash: nTimeWeight = %"PRI64d"\n", nTimeWeight);
+    // printf(">>> CheckStakeKernelHash: nTimeWeight = %" PRI64d "\n", nTimeWeight);
     // Calculate hash
     CDataStream ss(SER_GETHASH, 0);
     uint64 nStakeModifier = 0;
@@ -401,7 +401,7 @@ bool CheckStakeKernelHash(CBlockIndex* pindexPrev, unsigned int nBits, const CBl
 	{
 		if(fDebug)
 		{
-			printf(">>> nValueIn = %"PRI64d", nTimeWeight = %"PRI64d", nPrevMoneySupply = %"PRI64d"\n", nValueIn, nTimeWeight, pindexPrev->nMoneySupply);
+			printf(">>> nValueIn = %" PRI64d ", nTimeWeight = %" PRI64d ", nPrevMoneySupply = %" PRI64d "\n", nValueIn, nTimeWeight, pindexPrev->nMoneySupply);
 			CBigNum hashTargett_ = bnCoinDayWeight * bnTargetPerCoinDay;
 			printf(">>> bnCoinDayWeight = %s, bnTargetPerCoinDay = %s\n",
 			bnCoinDayWeight.ToString().c_str(), bnTargetPerCoinDay.ToString().c_str());
@@ -432,7 +432,7 @@ bool CheckStakeKernelHash(CBlockIndex* pindexPrev, unsigned int nBits, const CBl
     }
 		if(fDebug)
 		{
-			printf(">>> nValueIn = %"PRI64d", nTimeWeight = %"PRI64d"\n", nValueIn, nTimeWeight);
+			printf(">>> nValueIn = %" PRI64d ", nTimeWeight = %" PRI64d "\n", nValueIn, nTimeWeight);
 			CBigNum hashTargett_ = bnCoinDayWeight * bnTargetPerCoinDay;
 			printf(">>> bnCoinDayWeight = %s, bnTargetPerCoinDay = %s\n",
 			bnCoinDayWeight.ToString().c_str(), bnTargetPerCoinDay.ToString().c_str());
@@ -462,7 +462,6 @@ bool CheckProofOfStake(CBlockIndex* pindexPrev, const CTransaction& tx, unsigned
     CTxIndex txindex;
     if (!txPrev.ReadFromDisk(txdb, txin.prevout, txindex))
         return tx.DoS(1, error("CheckProofOfStake() : INFO: read txPrev failed"));  // previous transaction not in main chain, may occur during initial download
-    txdb.Close();
 
     // Verify signature
     if (!VerifySignature(txPrev, tx, 0, true, 0))
