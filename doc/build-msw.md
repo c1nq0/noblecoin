@@ -1,5 +1,7 @@
 Copyright (c) 2014-2019 Noblecoin Developers
+
 Copyright (c) PeerUnity Developers
+
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
 This product includes software developed by the OpenSSL Project for use in
@@ -81,12 +83,12 @@ Same for G++ -v and Qmake -v
 
 ### 2.1 OpenSSL 
 
-https://www.openssl.org/source/openssl-1.0.2s.tar.gz
+https://www.openssl.org/source/openssl-1.1.1g.tar.gz
 
 From an MinGW shell (C:\MinGW\msys\1.0\msys.bat), unpack the source archive to C:\deps, then configure and make:
 
 ```
-cd c/deps/openssl-1.0.2s
+cd c/deps/openssl-1.1.1g
 Configure mingw
 make
 ```
@@ -106,17 +108,18 @@ make
 
 ### 2.3 Boost
 
-http://sourceforge.net/projects/boost/files/boost/1.58.0/
+http://sourceforge.net/projects/boost/files/boost/1.66.0/
 
 Download either the zip or the 7z archive, unpack Boost to C:\deps, then bootstrap and compile from a Windows command prompt:
 
 ```
-cd C:\deps\boost_1_58_0
-bootstrap.bat mingw
-b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc stage
+cd C:\deps\boost_1_66_0\tools\build\
+bootstrap.bat gcc
+cd C:\deps\boost_1_66_0\
+tools\build\b2 toolset=gcc --build-type=complete stage --with-filesystem --with-system --with-program_options --with-thread --with-chrono
 ```
 
-This will compile the required Boost libraries and put them into the stage folder (C:\deps\boost_1_58_0\stage).
+This will compile the required Boost libraries and put them into the stage folder (C:\deps\boost_1_66_0\stage).
 Note: make sure you don't use tarballs, as unix EOL markers can break batch files.
 
 ### 2.4 Miniupnpc
@@ -219,13 +222,13 @@ https://download.qt.io/official_releases/qt/5.9/5.9.7/single/qt-everywhere-opens
 With your favorite text editor, add dependency library locations:
 
 ```
-BOOST_LIB_SUFFIX=-mgw53-mt-s-1_58
-BOOST_INCLUDE_PATH=C:/deps/boost_1_58_0-mgw
-BOOST_LIB_PATH=C:/deps/boost_1_58_0-mgw/stage/lib
+BOOST_LIB_SUFFIX=-mgw53-mt-s-x32-1_66
+BOOST_INCLUDE_PATH=C:/deps/boost_1_66_0-mgw
+BOOST_LIB_PATH=C:/deps/boost_1_66_0-mgw/stage/lib
 BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC-mgw/build_unix
 BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2s/include
-OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2s
+OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.1.1g/include
+OPENSSL_LIB_PATH=C:/deps/openssl-1.1.1g
 MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-1.6
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-1.6
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4

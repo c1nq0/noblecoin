@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 2.1.1.0
+!define VERSION 2.1.1.1
 !define COMPANY "Noblecoin project"
 
 # MUI Symbol Definitions

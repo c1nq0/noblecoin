@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = noblecoin-qt
 macx:TARGET = "Noblecoin-Qt"
-VERSION = 2.1.1.0
+VERSION = 2.1.1.1
 
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
@@ -23,13 +23,13 @@ CONFIG += static
 
 # winbuild dependencies
 win32 {
-BOOST_LIB_SUFFIX=-mgw53-mt-s-1_58
-BOOST_INCLUDE_PATH=C:/deps/boost_1_58_0
-BOOST_LIB_PATH=C:/deps/boost_1_58_0/stage/lib
+BOOST_LIB_SUFFIX=-mgw53-mt-s-x32-1_66
+BOOST_INCLUDE_PATH=C:/deps/boost_1_66_0
+BOOST_LIB_PATH=C:/deps/boost_1_66_0/stage/lib
 BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
 BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2u/include
-OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2u
+OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.1.1g/include
+OPENSSL_LIB_PATH=C:/deps/openssl-1.1.1g
 MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-1.6
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-1.6
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
@@ -406,7 +406,7 @@ OTHER_FILES += README.md \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    win32:BOOST_LIB_SUFFIX = -mgw53-mt-s-1_58
+    win32:BOOST_LIB_SUFFIX = -mgw53-mt-s-x32-1_66
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
