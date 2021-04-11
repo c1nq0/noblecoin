@@ -487,4 +487,3 @@ void HelpMessageBox::showOrPrint()
 }
 
 } // namespace GUIUtil
-
