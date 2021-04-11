@@ -1,6 +1,6 @@
 Copyright (c) 2009-2012 Bitcoin Developers
 Copyright (c) 2014-2015 Magi Developers
-Copyright (c) 2014-2019 Noblecoin Developers
+Copyright (c) 2014-2021 Noblecoin Developers
 
 Distributed under the MIT/X11 software license, see the accompanying file license.txt or http://www.opensource.org/licenses/mit-license.php. This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/).  This product includes cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP
 software written by Thomas Bernard.
@@ -74,10 +74,10 @@ Licenses of statically linked libraries:
 
 Versions used in this release:
  GCC           4.3.3
- OpenSSL       1.0.1g
+ OpenSSL       1.1.1g
  Berkeley DB   4.8.30.NC
- Boost         1.37
- miniupnpc     1.6
+ Boost         1.66
+ miniupnpc     2.0
 
 Dependency Build Instructions: Ubuntu & Debian (i386, amd64)
 ----------------------------------------------
@@ -87,8 +87,7 @@ sudo apt-get install libdb4.8-dev
 sudo apt-get install libdb4.8++-dev libgmp-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libminiupnpc-dev
- Boost 1.40+: sudo apt-get install libboost-all-dev
- or Boost 1.37: sudo apt-get install libboost1.37-dev
+sudo apt-get install libboost-all-dev
 sudo apt-get install libqrencode-dev
 
 Dependency Build Instructions: Ubuntu & Debian (armv7l)
@@ -99,11 +98,9 @@ sudo apt-get install libdb5.1-dev
 sudo apt-get install libdb5.1++-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libminiupnpc-dev
- Boost 1.40+: sudo apt-get install libboost-all-dev
- or Boost 1.37: sudo apt-get install libboost1.37-dev
+sudo apt-get install libboost-all-dev
 sudo apt-get install libqrencode-dev
 
-If using Boost 1.37, append -mt to the boost libraries in the makefile.
 
 
 Dependency Build Instructions: Gentoo
@@ -129,8 +126,8 @@ symbols, which reduces the executable size by about 90%.
 
 miniupnpc
 ---------
-tar -xzvf miniupnpc-1.6.tar.gz
-cd miniupnpc-1.6
+tar -xzvf miniupnpc-2.0.tar.gz
+cd miniupnpc-2.0
 make
 sudo su
 make install

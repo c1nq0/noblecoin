@@ -1,6 +1,6 @@
-Copyright (c) 2014-2019 Noblecoin Developers
-
 Copyright (c) PeerUnity Developers
+
+Copyright (c) 2014-2021 Noblecoin Developers
 
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
@@ -124,13 +124,13 @@ Note: make sure you don't use tarballs, as unix EOL markers can break batch file
 
 ### 2.4 Miniupnpc
 
-Download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.6.20120509.tar.gz and unpack to C:\deps, then from a Windows command prompt:
+Download http://miniupnp.free.fr/files/download.php?file=miniupnpc-2.0.20180203.tar.gz and unpack to C:\deps, then from a Windows command prompt:
 
 ```
-cd C:\deps\miniupnpc-1.6
-mingw32-make -f Makefile.mingw init upnpc-static
-mkdir C:\deps\miniupnpc-1.6\miniupnpc
-copy C:\deps\miniupnpc-1.6\*.h C:\deps\miniupnpc-1.6\miniupnpc
+cd C:\deps\miniupnpc-2.0
+mingw32-make -f Makefile.mingw CC=gcc init upnpc-static
+mkdir C:\deps\miniupnpc-2.0\miniupnpc
+copy C:\deps\miniupnpc-2.0\*.h C:\deps\miniupnpc-2.0\miniupnpc
 ```
 
 ### 2.5 Qrencode
@@ -164,20 +164,20 @@ With a text editor, edit INCLUDEPATHS, LIBPATHS, and LIBS in your C:\noblecoin-m
 
 ```
 INCLUDEPATHS= \
- -I"C:\deps\boost_1_58_0" \
+ -I"C:\deps\boost_1_66_0" \
  -I"C:\deps\db-4.8.30.NC\build_unix" \
- -I"C:\deps\openssl-1.0.2\include"
+ -I"C:\deps\openssl-1.1.1g\include"
 
 LIBPATHS= \
- -L"C:\deps\boost_1_58_0\stage\lib" \
+ -L"C:\deps\boost_1_66_0\stage\lib" \
  -L"C:\deps\db-4.8.30.NC\build_unix" \
- -L"C:\deps\openssl-1.0.2"
+ -L"C:\deps\openssl-1.1.1g"
 
 LIBS= \
- -l boost_system-mgw53-mt-s-1_58 \
- -l boost_filesystem-mgw53-mt-s-1_58 \
- -l boost_program_options-mgw53-mt-s-1_58 \
- -l boost_thread-mgw53-mt-s-1_58 \
+ -l boost_system-mgw53-mt-s-1_66 \
+ -l boost_filesystem-mgw53-mt-s-1_66 \
+ -l boost_program_options-mgw53-mt-s-1_66 \
+ -l boost_thread-mgw53-mt-s-1_66 \
  -l db_cxx \
  -l ssl \
  -l crypto
@@ -186,8 +186,8 @@ LIBS= \
 and...
 ```
 ifdef USE_UPNP
- INCLUDEPATHS += -I"C:\deps\miniupnpc-1.6"
- LIBPATHS += -L"C:\deps\miniupnpc-1.6"
+ INCLUDEPATHS += -I"C:\deps\miniupnpc-2.0"
+ LIBPATHS += -L"C:\deps\miniupnpc-2.0"
  LIBS += -l miniupnpc -l iphlpapi
  DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
@@ -229,8 +229,8 @@ BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC-mgw/build_unix
 BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
 OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.1.1g/include
 OPENSSL_LIB_PATH=C:/deps/openssl-1.1.1g
-MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-1.6
-MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-1.6
+MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-2.0
+MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-2.0
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
 ```

@@ -13,14 +13,14 @@ BOOST_SUFFIX?=-mgw53-mt-s-x32-1_66
 INCLUDEPATHS= \
  -I"c:/deps/boost_1_66_0" \
  -I"c:/deps/db-4.8.30.NC/build_unix" \
- -I"c:/deps/miniupnpc-1.6" \
+ -I"c:/deps/miniupnpc-2.0" \
  -I"c:/deps/gmp-6.0.0" \
  -I"c:/deps/openssl-1.1.1g/include"
 
 LIBPATHS= \
  -L"c:/deps/boost_1_66_0/stage/lib" \
  -L"c:/deps/db-4.8.30.NC/build_unix" \
- -L"c:/deps/miniupnpc-1.6" \
+ -L"c:/deps/miniupnpc-2.0" \
  -L"c:/deps/gmp-6.0.0/.libs" \
  -L"c:/deps/openssl-1.1.1g"
  
@@ -46,8 +46,8 @@ ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"c:/deps/miniupnpc-1.6"
- LIBPATHS += -L"c:/deps/miniupnpc-1.6"
+ INCLUDEPATHS += -I"c:/deps/miniupnpc-2.0"
+ LIBPATHS += -L"c:/deps/miniupnpc-2.0"
  LIBS += -l miniupnpc -l iphlpapi
  DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif

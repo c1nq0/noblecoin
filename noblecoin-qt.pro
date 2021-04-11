@@ -30,8 +30,8 @@ BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
 BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
 OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.1.1g/include
 OPENSSL_LIB_PATH=C:/deps/openssl-1.1.1g
-MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-1.6
-MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-1.6
+MINIUPNPC_INCLUDE_PATH=C:/deps/miniupnpc-2.0
+MINIUPNPC_LIB_PATH=C:/deps/miniupnpc-2.0
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
 GMP_INCLUDE_PATH=C:/deps/gmp-6.0.0
@@ -84,7 +84,7 @@ contains(USE_UPNP, -) {
     count(USE_UPNP, 0) {
         USE_UPNP=1
     }
-    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
+    DEFINES += USE_UPNP=$$USE_UPNP MINIUPNP_STATICLIB
     INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
     win32:LIBS += -liphlpapi
