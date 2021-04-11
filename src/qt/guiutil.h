@@ -49,7 +49,6 @@ namespace GUIUtil
 
     /** Get save filename, mimics QFileDialog::getSaveFileName, except that it appends a default suffix
         when no suffix is provided by the user.
-
       @param[in] parent  Parent window (or 0)
       @param[in] caption Window caption (or empty, for default)
       @param[in] dir     Starting directory (or empty, to default to documents directory)
@@ -62,7 +61,6 @@ namespace GUIUtil
                                    QString *selectedSuffixOut=0);
 
     /** Get connection type to call object slot in GUI thread with invokeMethod. The call will be blocking.
-
        @returns If called from the GUI thread, return a Qt::DirectConnection.
                 If called from another thread, return a Qt::BlockingQueuedConnection.
     */

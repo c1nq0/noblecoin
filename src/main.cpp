@@ -13,7 +13,6 @@
 #include "kernel.h"
 #include "txdb.h"
 #include "scrypt_mine.h"
-#include "bitcoinrpc.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>

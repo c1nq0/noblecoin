@@ -26,7 +26,9 @@
 #include "guiutil.h"
 #include "rpcconsole.h"
 #include "wallet.h"
-#include "bitcoinrpc.h"
+#include "init.h"
+#include "ui_interface.h"
+#include "rpcserver.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"

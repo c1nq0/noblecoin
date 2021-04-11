@@ -83,7 +83,9 @@ SOURCES       = src\qt\bitcoin.cpp \
 		src\qt\transactionfilterproxy.cpp \
 		src\qt\transactionview.cpp \
 		src\qt\walletmodel.cpp \
-		src\bitcoinrpc.cpp \
+		src\rpcclient.cpp \
+		src\rpcprotocol.cpp \
+		src\rpcserver.cpp \
 		src\rpcdump.cpp \
 		src\rpcnet.cpp \
 		src\rpcmining.cpp \
@@ -152,7 +154,9 @@ OBJECTS       = build/bitcoin.o \
 		build/transactionfilterproxy.o \
 		build/transactionview.o \
 		build/walletmodel.o \
-		build/bitcoinrpc.o \
+		build/rpcclient.o \
+		build/rpcprotocol.o \
+		build/rpcserver.o \
 		build/rpcdump.o \
 		build/rpcnet.o \
 		build/rpcmining.o \
@@ -427,8 +431,14 @@ build/transactionview.o: src/qt/transactionview.cpp
 build/walletmodel.o: src/qt/walletmodel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\walletmodel.o src\qt\walletmodel.cpp
 
-build/bitcoinrpc.o: src/bitcoinrpc.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\bitcoinrpc.o src\bitcoinrpc.cpp
+build/rpcclient.o: src/rpcclient.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\rpcclient.o src\rpcclient.cpp
+
+build/rpcprotocol.o: src/rpcprotocol.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\rpcprotocol.o src\rpcprotocol.cpp
+
+build/rpcserver.o: src/rpcserver.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\rpcserver.o src\rpcserver.cpp
 
 build/rpcdump.o: src/rpcdump.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\rpcdump.o src\rpcdump.cpp
