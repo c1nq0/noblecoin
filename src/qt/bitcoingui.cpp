@@ -290,12 +290,19 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
+	
     aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About Noblecoin"), this);
     aboutAction->setToolTip(tr("Show information about Noblecoin"));
     aboutAction->setMenuRole(QAction::AboutRole);
+
+    editConfigFileAction = new QAction(QIcon(":/icons/edit"), tr("Edit noblecoin.conf"), this);
+    editConfigFileAction->setToolTip(tr("Edit configuration file"));
+    editConfigFileAction->setMenuRole(QAction::NoRole);
+	
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
+	
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
     optionsAction->setToolTip(tr("Modify configuration options for Noblecoin"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
@@ -319,6 +326,9 @@ void BitcoinGUI::createActions()
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+	
+    connect(editConfigFileAction, SIGNAL(triggered()), this, SLOT(openConfigfile()));
+	
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
     connect(encryptWalletAction, SIGNAL(triggered(bool)), this, SLOT(encryptWallet(bool)));
@@ -357,6 +367,7 @@ void BitcoinGUI::createMenuBar()
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
+    help->addAction(editConfigFileAction);
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
@@ -514,6 +525,11 @@ void BitcoinGUI::aboutClicked()
     AboutDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
+}
+
+void BitcoinGUI::openConfigfile()
+{
+    GUIUtil::openConfigfile();
 }
 
 void BitcoinGUI::setNumConnections(int count)
